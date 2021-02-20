@@ -7,3 +7,11 @@ CREATE TABLE departments (
 	dept_no VARCHAR,
 	dept_name VARCHAR
 );
+
+-- CREATE dept_emp table
+CREATE TABLE dept_emp (
+	emp_no INT,
+	dept_no VARCHAR
+);
+
+--
