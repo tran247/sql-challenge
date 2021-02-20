@@ -31,5 +31,11 @@ CREATE TABLE employees (
 	hire_date DATE
 );
 
+--CREATE salaries table
+CREATE TABLE salaries (
+	emp_no INT,
+	salary INT
+);
+
 
 
