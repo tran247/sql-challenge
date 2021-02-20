@@ -37,5 +37,11 @@ CREATE TABLE salaries (
 	salary INT
 );
 
+--CREATE title table
+CREATE TABLE title (
+	title_id VARCHAR,
+	title VARCHAR
+);
+
 
 
