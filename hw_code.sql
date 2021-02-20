@@ -20,5 +20,16 @@ CREATE TABLE dept_manager (
 	emp_no INT
 );
 
+-- CREATE employees table
+CREATE TABLE employees (
+	emp_no INT,
+	emp_title_id VARCHAR,
+	birth_date DATE,
+	first_name VARCHAR,
+	last_name VARCHAR,
+	sex VARCHAR,
+	hire_date DATE
+);
+
 
 
