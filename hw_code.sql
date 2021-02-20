@@ -14,4 +14,11 @@ CREATE TABLE dept_emp (
 	dept_no VARCHAR
 );
 
---
+--CREATE dept_manager table
+CREATE TABLE dept_manager (
+	dept_no VARCHAR,
+	emp_no INT
+);
+
+
+
