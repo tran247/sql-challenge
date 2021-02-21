@@ -77,12 +77,12 @@ dm.dept_no=d.dept_no;
 
 --CREATE VIEW OF JOIN with above and dept_emp info. stay tuned ^^ PART 2 of 2
 CREATE VIEW managers AS
-SELECT e.emp_no, e.last_name, e.first_name, ma1.dept_no, ma1.dept_name
+SELECT ma1.dept_no, ma1.dept_name, e.emp_no, e.last_name, e.first_name
 FROM employees AS e
 INNER JOIN managers_pt1 AS ma1 ON
 e.emp_no=ma1.emp_no;
 
 SELECT * FROM managers
 
-
+-- CREATE 5th view for 4th
 
