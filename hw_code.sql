@@ -44,7 +44,7 @@ CREATE TABLE title (
 );
 
 -- DATA ANALYSIS
-SELECT * FROM salaries
+SELECT * FROM employees
 
 -- CREATE 1st VIEW with e.emp_no, e.last_name, e.first_name, e.sex, s.salary
 CREATE VIEW employee_salary AS
@@ -55,4 +55,12 @@ e.emp_no=s.emp_no;
 
 SELECT * FROM employee_salary
 
+-- CREATE 2nd VIEW with e.first_name, e.last_name, e.hire_date in 1986
+CREATE VIEW hire_1986 AS
+SELECT first_name, last_name, hire_date
+FROM employees 
+WHERE hire_date >= TO_DATE('1986-01-01', 'YYYY-MM-DD')
+AND hire_date <= TO_DATE('1986-12-31', 'YYYY-MM-DD');
+
+SELECT * FROM hire_1986
 
