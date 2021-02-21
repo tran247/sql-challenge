@@ -64,3 +64,25 @@ AND hire_date <= TO_DATE('1986-12-31', 'YYYY-MM-DD');
 
 SELECT * FROM hire_1986
 
+--CREATE 3rd view with dm.dept_no,dm.emp_no,d.dept_no,d.dept_name,de.emp_no,de.dept_no,
+--e.emp_no, e.last_name, e.first_name.
+-- CREATE 1st join with dept_manager and departments PART 1 of 2
+SELECT * FROM dept_manager
+
+CREATE VIEW managers_pt1 AS
+SELECT dm.emp_no, dm.dept_no, d.dept_name
+FROM dept_manager AS dm
+Inner JOIN departments AS d ON
+dm.dept_no=d.dept_no;
+
+--CREATE VIEW OF JOIN with above and dept_emp info. stay tuned ^^ PART 2 of 2
+CREATE VIEW managers AS
+SELECT e.emp_no, e.last_name, e.first_name, ma1.dept_no, ma1.dept_name
+FROM employees AS e
+INNER JOIN managers_pt1 AS ma1 ON
+e.emp_no=ma1.emp_no;
+
+SELECT * FROM managers
+
+
+
