@@ -103,5 +103,14 @@ LEFT JOIN "Employees" AS e
 ON dm.emp_no = e.emp_no
 ORDER BY emp_no
 
+--employee number, last name, first name, and department name.
+
+SELECT e.emp_no, e.last_name, e.first_name, de.dept_no, d.dept_name
+FROM "Employees" AS e
+INNER JOIN "Dept_Emp" AS de ON e.emp_no=de.emp_no
+INNER JOIN "Departments" AS d ON d.dept_no=de.dept_no
+
+
+
 
    
