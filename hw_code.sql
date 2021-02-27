@@ -1,88 +1,71 @@
--- RECREATE TABLEs BECAUSE I FORGOT TO SAVE AND I SCROLLED RIGHT AND IT WENT BACK
+--RECREATE TABLEs BECAUSE I FORGOT TO SAVE AND I SCROLLED RIGHT AND IT WENT BACK
 --NOW I HAVE TO MAKE EVERYTHING AND SAVE AT EVERY TABLE SO I WONT FORGET
 --DID I MENTION I HAVE TO DO THIS AGAIN? AHHHH!!!
+--DID IT WRONG AGAIN!! FORGOT ABOUT PRIMARY AND FOREIGN KEY
+--DROP TABLE CASCADE ALL tables and redo. 3rd times the charm!
 
--- CREATE departments table (2nd try)
-CREATE TABLE departments (
-	dept_no VARCHAR,
-	dept_name VARCHAR
+-- Used ERD to create graphs
+CREATE TABLE "Departments" (
+    "dept_no" VARCHAR   NOT NULL,
+    "dept_name" VARCHAR   NOT NULL,
+    CONSTRAINT "pk_Departments" PRIMARY KEY (
+        "dept_no"
+     )
 );
 
--- CREATE dept_emp table
-CREATE TABLE dept_emp (
-	emp_no INT,
-	dept_no VARCHAR
+CREATE TABLE "Dept_Emp" (
+    "emp_no" INT   NOT NULL,
+    "dept_no" VARCHAR   NOT NULL
 );
 
---CREATE dept_manager table
-CREATE TABLE dept_manager (
-	dept_no VARCHAR,
-	emp_no INT
+CREATE TABLE "Dept_Manager" (
+    "dept_no" VARCHAR   NOT NULL,
+    "emp_no" INT   NOT NULL
 );
 
--- CREATE employees table
-CREATE TABLE employees (
-	emp_no INT,
-	emp_title_id VARCHAR,
-	birth_date DATE,
-	first_name VARCHAR,
-	last_name VARCHAR,
-	sex VARCHAR,
-	hire_date DATE
+CREATE TABLE "Employees" (
+    "emp_no" INT   NOT NULL,
+    "emp_title_id" VARCHAR   NOT NULL,
+    "birth_date" DATE   NOT NULL,
+    "first_name" VARCHAR   NOT NULL,
+    "last_name" VARCHAR   NOT NULL,
+    "hire_date" DATE   NOT NULL,
+    CONSTRAINT "pk_Employees" PRIMARY KEY (
+        "emp_no"
+     )
 );
 
---CREATE salaries table
-CREATE TABLE salaries (
-	emp_no INT,
-	salary INT
+CREATE TABLE "Salaries" (
+    "emp_no" INT   NOT NULL,
+    "salary" INT   NOT NULL
 );
 
---CREATE title table
-CREATE TABLE title (
-	title_id VARCHAR,
-	title VARCHAR
+CREATE TABLE "Titles" (
+    "title_id" VARCHAR   NOT NULL,
+    "title" VARCHAR   NOT NULL,
+    CONSTRAINT "pk_Titles" PRIMARY KEY (
+        "title_id"
+     )
 );
 
--- DATA ANALYSIS
-SELECT * FROM employees
+ALTER TABLE "Dept_Emp" ADD CONSTRAINT "fk_Dept_Emp_emp_no" FOREIGN KEY("emp_no")
+REFERENCES "Employees" ("emp_no");
 
--- CREATE 1st VIEW with e.emp_no, e.last_name, e.first_name, e.sex, s.salary
-CREATE VIEW employee_salary AS
-SELECT e.last_name, e.first_name, e.sex, s.salary
-FROM employees AS e
-INNER JOIN salaries AS s ON
-e.emp_no=s.emp_no;
+ALTER TABLE "Dept_Emp" ADD CONSTRAINT "fk_Dept_Emp_dept_no" FOREIGN KEY("dept_no")
+REFERENCES "Departments" ("dept_no");
 
-SELECT * FROM employee_salary
+ALTER TABLE "Dept_Manager" ADD CONSTRAINT "fk_Dept_Manager_dept_no" FOREIGN KEY("dept_no")
+REFERENCES "Departments" ("dept_no");
 
--- CREATE 2nd VIEW with e.first_name, e.last_name, e.hire_date in 1986
-CREATE VIEW hire_1986 AS
-SELECT first_name, last_name, hire_date
-FROM employees 
-WHERE hire_date >= TO_DATE('1986-01-01', 'YYYY-MM-DD')
-AND hire_date <= TO_DATE('1986-12-31', 'YYYY-MM-DD');
+ALTER TABLE "Dept_Manager" ADD CONSTRAINT "fk_Dept_Manager_emp_no" FOREIGN KEY("emp_no")
+REFERENCES "Employees" ("emp_no");
 
-SELECT * FROM hire_1986
+ALTER TABLE "Employees" ADD CONSTRAINT "fk_Employees_emp_title_id" FOREIGN KEY("emp_title_id")
+REFERENCES "Titles" ("title_id");
 
---CREATE 3rd view with dm.dept_no,dm.emp_no,d.dept_no,d.dept_name,de.emp_no,de.dept_no,
---e.emp_no, e.last_name, e.first_name.
--- CREATE 1st join with dept_manager and departments PART 1 of 2
-SELECT * FROM dept_manager
+ALTER TABLE "Salaries" ADD CONSTRAINT "fk_Salaries_emp_no" FOREIGN KEY("emp_no")
+REFERENCES "Employees" ("emp_no");
 
-CREATE VIEW managers_pt1 AS
-SELECT dm.emp_no, dm.dept_no, d.dept_name
-FROM dept_manager AS dm
-Inner JOIN departments AS d ON
-dm.dept_no=d.dept_no;
 
---CREATE VIEW OF JOIN with above and dept_emp info. stay tuned ^^ PART 2 of 2
-CREATE VIEW managers AS
-SELECT ma1.dept_no, ma1.dept_name, e.emp_no, e.last_name, e.first_name
-FROM employees AS e
-INNER JOIN managers_pt1 AS ma1 ON
-e.emp_no=ma1.emp_no;
 
-SELECT * FROM managers
-
--- CREATE 5th view for 4th
-
+   
