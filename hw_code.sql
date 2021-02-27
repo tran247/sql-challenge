@@ -70,6 +70,38 @@ REFERENCES "Employees" ("emp_no");
 --I FINALLY GOT ALL THE DATA IN. I DON'T EVEN KNOW HOW?!
 
 
+--employee number, last name, first name, gender, and salary.
+
+
+SELECT e.emp_no, 
+e.last_name,
+e.first_name,
+e.sex,
+s.salary
+FROM "Employees" AS e
+LEFT JOIN "Salaries" AS s
+ON e.emp_no = s.emp_no
+ORDER BY emp_no
+
+
+--employees hired 1986.
+
+SELECT first_name, last_name, hire_date
+FROM "Employees" 
+WHERE hire_date >= TO_DATE('1986-01-01', 'YYYY-MM-DD')
+AND hire_date <= TO_DATE('1986-12-31', 'YYYY-MM-DD');
+
+
+--department number, department name, the manager's employee number, 
+--last name, first name, and start and end employment dates.
+
+SELECT dm.dept_no, d.dept_name, dm.emp_no, e.last_name, e.first_name
+FROM "Dept_Manager" AS dm
+LEFT JOIN "Departments" AS d
+ON dm.dept_no = d.dept_no
+LEFT JOIN "Employees" AS e
+ON dm.emp_no = e.emp_no
+ORDER BY emp_no
 
 
    
